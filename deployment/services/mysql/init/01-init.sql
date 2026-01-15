@@ -3,7 +3,7 @@
 CREATE DATABASE IF NOT EXISTS laravel CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 -- Create test user with password
-CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test123';
+CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'password';
 
 -- Grant privileges to test user
 GRANT ALL PRIVILEGES ON test.* TO 'test'@'%';

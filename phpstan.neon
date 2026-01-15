@@ -80,8 +80,6 @@ parameters:
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
 #
-    excludePaths:
-        - ./app/DataTables
 
 #
 #    checkMissingIterableValueType: false

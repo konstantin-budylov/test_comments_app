@@ -12,9 +12,11 @@
         }
     ],
     "require": {
-        "php": "^8.4",
+        "php": "^8.0",
+        "knuckleswtf/scribe": "*",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "vyuldashev/laravel-openapi": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: 'Comments App API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'https://localhost'
+tags:
+  -
+    name: Healthcheck
+    description: ''
+paths:
+  /api/v1/health:
+    get:
+      summary: Healthcheck
+      operationId: healthcheck
+      description: "Check that the service is up. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and a response listing the failed services."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: ok
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                    description: 'The status of this API (`ok` or `failed`).'
+                    enum: []
+        400:
+          description: 'Service is unhealthy'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: failed
+                properties:
+                  status:
+                    type: string
+                    example: failed
+                    description: 'The status of this API (`ok` or `failed`).'
+                    enum: []
+      tags:
+        - Healthcheck
+      security: []

@@ -45,12 +45,12 @@
     </span>
 </a>
 <div class="tocify-wrapper">
-    
+
             <div class="lang-selector">
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
-    
+
     <div class="search">
         <input type="text" class="search" id="input-search" placeholder="Search">
     </div>
@@ -161,7 +161,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
         <h1 id="comments">Comments</h1>
 
-    
+
 
                                 <h2 id="comments-POSTapi-v1-entities--entity_id--comment">Create entity comment</h2>
 
@@ -635,7 +635,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"architecto\"
+    \"user_id\": \"1\"
 }"
 </code></pre></div>
 
@@ -651,7 +651,7 @@ const headers = {
 };
 
 let body = {
-    "user_id": "architecto"
+    "user_id": "1"
 };
 
 fetch(url, {
@@ -756,16 +756,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="user_id"                data-endpoint="DELETEapi-v1-comments--comment_id-"
-               value="architecto"
+               value="1"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the users table. Example: <code>architecto</code></p>
+<p>The <code>id</code> of an existing record in the users table. Example: <code>1</code></p>
         </div>
         </form>
 
                 <h1 id="entities">Entities</h1>
 
-    
+
 
                                 <h2 id="entities-GETapi-v1-entities">List all entities</h2>
 
@@ -823,6 +823,16 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
+        {
+            &quot;entity_id&quot;: 9,
+            &quot;entity_type&quot;: &quot;news&quot;,
+            &quot;entity_data&quot;: {
+                &quot;id&quot;: 7,
+                &quot;title&quot;: &quot;Sample Title&quot;,
+                &quot;description&quot;: &quot;This is a description&quot;
+            },
+            &quot;created_at&quot;: &quot;2026-01-15T15:33:06.000000Z&quot;
+        },
         {
             &quot;entity_id&quot;: 8,
             &quot;entity_type&quot;: &quot;video&quot;,
@@ -1443,7 +1453,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="healthcheck">Healthcheck</h1>
 
-    
+
 
                                 <h2 id="healthcheck-GETapi-v1-health">Healthcheck</h2>
 
@@ -1573,7 +1583,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="news">News</h1>
 
-    
+
 
                                 <h2 id="news-GETapi-v1-news">List all news entities</h2>
 
@@ -1631,6 +1641,16 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
+        {
+            &quot;entity_id&quot;: 9,
+            &quot;entity_type&quot;: &quot;news&quot;,
+            &quot;entity_data&quot;: {
+                &quot;id&quot;: 7,
+                &quot;title&quot;: &quot;Sample Title&quot;,
+                &quot;description&quot;: &quot;This is a description&quot;
+            },
+            &quot;created_at&quot;: &quot;2026-01-15T15:33:06.000000Z&quot;
+        },
         {
             &quot;entity_id&quot;: 7,
             &quot;entity_type&quot;: &quot;news&quot;,
@@ -1788,7 +1808,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="video">Video</h1>
 
-    
+
 
                                 <h2 id="video-GETapi-v1-video">List all video post entities</h2>
 
@@ -1961,9 +1981,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                 </form>
 
-            
 
-        
+
+
     </div>
     <div class="dark-box">
                     <div class="lang-selector">

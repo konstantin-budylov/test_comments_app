@@ -130,7 +130,7 @@ paths:
                 user_id:
                   type: string
                   description: 'The <code>id</code> of an existing record in the users table.'
-                  example: architecto
+                  example: 1
               required:
                 - user_id
       security: []
@@ -168,6 +168,14 @@ paths:
                 type: object
                 example:
                   data:
+                    -
+                      entity_id: 9
+                      entity_type: news
+                      entity_data:
+                        id: 7
+                        title: 'Sample Title'
+                        description: 'This is a description'
+                      created_at: '2026-01-15T15:33:06.000000Z'
                     -
                       entity_id: 8
                       entity_type: video
@@ -241,6 +249,14 @@ paths:
                     type: array
                     example:
                       -
+                        entity_id: 9
+                        entity_type: news
+                        entity_data:
+                          id: 7
+                          title: 'Sample Title'
+                          description: 'This is a description'
+                        created_at: '2026-01-15T15:33:06.000000Z'
+                      -
                         entity_id: 8
                         entity_type: video
                         entity_data:
@@ -309,25 +325,25 @@ paths:
                       properties:
                         entity_id:
                           type: integer
-                          example: 8
+                          example: 9
                         entity_type:
                           type: string
-                          example: video
+                          example: news
                         entity_data:
                           type: object
                           properties:
                             id:
                               type: integer
-                              example: 2
+                              example: 7
                             title:
                               type: string
                               example: 'Sample Title'
                             description:
                               type: string
-                              example: 'This is a'
+                              example: 'This is a description'
                         created_at:
                           type: string
-                          example: '2026-01-15T13:17:09.000000Z'
+                          example: '2026-01-15T15:33:06.000000Z'
                   meta:
                     type: object
                     properties:
@@ -754,6 +770,14 @@ paths:
                 example:
                   data:
                     -
+                      entity_id: 9
+                      entity_type: news
+                      entity_data:
+                        id: 7
+                        title: 'Sample Title'
+                        description: 'This is a description'
+                      created_at: '2026-01-15T15:33:06.000000Z'
+                    -
                       entity_id: 7
                       entity_type: news
                       entity_data:
@@ -810,6 +834,14 @@ paths:
                     type: array
                     example:
                       -
+                        entity_id: 9
+                        entity_type: news
+                        entity_data:
+                          id: 7
+                          title: 'Sample Title'
+                          description: 'This is a description'
+                        created_at: '2026-01-15T15:33:06.000000Z'
+                      -
                         entity_id: 7
                         entity_type: news
                         entity_data:
@@ -862,7 +894,7 @@ paths:
                       properties:
                         entity_id:
                           type: integer
-                          example: 7
+                          example: 9
                         entity_type:
                           type: string
                           example: news
@@ -871,16 +903,16 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 6
+                              example: 7
                             title:
                               type: string
                               example: 'Sample Title'
                             description:
                               type: string
-                              example: 'This is a'
+                              example: 'This is a description'
                         created_at:
                           type: string
-                          example: '2026-01-15T13:15:50.000000Z'
+                          example: '2026-01-15T15:33:06.000000Z'
                   meta:
                     type: object
                     properties:

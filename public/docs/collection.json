@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Comments App API Documentation",
-        "_postman_id": "e753bba2-023e-42af-a362-e34ace0b4f4f",
+        "_postman_id": "e56bec83-e45f-4eb1-9ea5-9e73fde2b5cc",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -163,7 +163,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"architecto\"}"
+                            "raw": "{\"user_id\":\"1\"}"
                         },
                         "description": "",
                         "auth": {
@@ -228,7 +228,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"data\":[{\"entity_id\":8,\"entity_type\":\"video\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:17:09.000000Z\"},{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":2,\"entity_type\":\"video\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title sdfsdfsdf\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:49.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "body": "{\"data\":[{\"entity_id\":9,\"entity_type\":\"news\",\"entity_data\":{\"id\":7,\"title\":\"Sample Title\",\"description\":\"This is a description\"},\"created_at\":\"2026-01-15T15:33:06.000000Z\"},{\"entity_id\":8,\"entity_type\":\"video\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:17:09.000000Z\"},{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":2,\"entity_type\":\"video\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title sdfsdfsdf\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:49.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
                             "name": ""
                         }
                     ]
@@ -437,7 +437,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"data\":[{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "body": "{\"data\":[{\"entity_id\":9,\"entity_type\":\"news\",\"entity_data\":{\"id\":7,\"title\":\"Sample Title\",\"description\":\"This is a description\"},\"created_at\":\"2026-01-15T15:33:06.000000Z\"},{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
                             "name": ""
                         }
                     ]

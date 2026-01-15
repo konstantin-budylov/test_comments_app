@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->group(function () {
     // Define your API routes here
-    Route::namespace('V1')->group(function () {
-        Route::get('/v1/health', 'HealthController@index');
+    Route::namespace('V1')->prefix('v1')->group(function () {
+        Route::get('/health', 'HealthController@index');
     });
 });

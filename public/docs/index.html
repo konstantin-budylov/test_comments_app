@@ -66,6 +66,31 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
+                    <ul id="tocify-header-entities" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="entities">
+                    <a href="#entities">Entities</a>
+                </li>
+                                    <ul id="tocify-subheader-entities" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="entities-GETapi-v1-entities">
+                                <a href="#entities-GETapi-v1-entities">List all entities</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="entities-GETapi-v1-entities--entity_id-">
+                                <a href="#entities-GETapi-v1-entities--entity_id-">Show single entity by id</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="entities-POSTapi-v1-entities">
+                                <a href="#entities-POSTapi-v1-entities">Create new entity</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="entities-POSTapi-v1-entities--entity_id--comment">
+                                <a href="#entities-POSTapi-v1-entities--entity_id--comment">POST api/v1/entities/{entity_id}/comment</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="entities-POSTapi-v1-comments--comment_id--update">
+                                <a href="#entities-POSTapi-v1-comments--comment_id--update">POST api/v1/comments/{comment_id}/update</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="entities-POSTapi-v1-comments--comment_id--delete">
+                                <a href="#entities-POSTapi-v1-comments--comment_id--delete">POST api/v1/comments/{comment_id}/delete</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-healthcheck" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="healthcheck">
                     <a href="#healthcheck">Healthcheck</a>
@@ -73,6 +98,26 @@
                                     <ul id="tocify-subheader-healthcheck" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="healthcheck-GETapi-v1-health">
                                 <a href="#healthcheck-GETapi-v1-health">Healthcheck</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-news" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="news">
+                    <a href="#news">News</a>
+                </li>
+                                    <ul id="tocify-subheader-news" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="news-GETapi-v1-news">
+                                <a href="#news-GETapi-v1-news">List all news entities</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-video" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="video">
+                    <a href="#video">Video</a>
+                </li>
+                                    <ul id="tocify-subheader-video" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="video-GETapi-v1-video">
+                                <a href="#video-GETapi-v1-video">List all video post entities</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -104,7 +149,857 @@ You can switch the language used with the tabs at the top right (or from the nav
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
 
-        <h1 id="healthcheck">Healthcheck</h1>
+        <h1 id="entities">Entities</h1>
+
+    
+
+                                <h2 id="entities-GETapi-v1-entities">List all entities</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-entities">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://localhost/api/v1/entities?entitiesCursor=eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ%3D%3D" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/entities"
+);
+
+const params = {
+    "entitiesCursor": "eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-entities">
+            <blockquote>
+            <p>Example response (200, Successful response):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+     &quot;data&quot;: [
+     {
+         &quot;id&quot;: 6,
+         &quot;entityable_type&quot;: &quot;news&quot;,
+         &quot;entityable_id&quot;: 5,
+         &quot;created_at&quot;: &quot;2026-01-15T12:34:42.000000Z&quot;,
+         &quot;data&quot;: {
+             &quot;id&quot;: 5,
+             &quot;title&quot;: &quot;Sample Title&quot;,
+             &quot;description&quot;: &quot;This is a&quot;
+         }
+     }
+     ],
+     &quot;meta&quot;: {
+         &quot;next_cursor&quot;: null,
+         &quot;prev_cursor&quot;: null,
+         &quot;per_page&quot;: 20
+     }
+}&quot;</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-entities" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-entities"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-entities"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-entities" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-entities">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-entities" data-method="GET"
+      data-path="api/v1/entities"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-entities', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-entities"
+                    onclick="tryItOut('GETapi-v1-entities');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-entities"
+                    onclick="cancelTryOut('GETapi-v1-entities');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-entities"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/entities</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-entities"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-entities"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>entitiesCursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="entitiesCursor"                data-endpoint="GETapi-v1-entities"
+               value="eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ=="
+               data-component="query">
+    <br>
+<p>The cursor for pagination. Example: <code>eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==</code></p>
+            </div>
+                </form>
+
+                    <h2 id="entities-GETapi-v1-entities--entity_id-">Show single entity by id</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-entities--entity_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://localhost/api/v1/entities/architecto" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/entities/architecto"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-entities--entity_id-">
+            <blockquote>
+            <p>Example response (200, Successful response):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;entity_id&quot;: 1,
+        &quot;entity_type&quot;: &quot;news&quot;,
+        &quot;entity_data&quot;: {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Sample Title&quot;,
+            &quot;description&quot;: &quot;This is a news&quot;
+        },
+        &quot;created_at&quot;: &quot;2026-01-15T12:22:49.000000Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-entities--entity_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-entities--entity_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-entities--entity_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-entities--entity_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-entities--entity_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-entities--entity_id-" data-method="GET"
+      data-path="api/v1/entities/{entity_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-entities--entity_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-entities--entity_id-"
+                    onclick="tryItOut('GETapi-v1-entities--entity_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-entities--entity_id-"
+                    onclick="cancelTryOut('GETapi-v1-entities--entity_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-entities--entity_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/entities/{entity_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-entities--entity_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-entities--entity_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>entity_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="entity_id"                data-endpoint="GETapi-v1-entities--entity_id-"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the entity. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="entities-POSTapi-v1-entities">Create new entity</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-entities">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://localhost/api/v1/entities" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"entity_type\": 1,
+    \"title\": \"Sample Title\",
+    \"description\": \"This is a\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/entities"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "entity_type": 1,
+    "title": "Sample Title",
+    "description": "This is a"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-entities">
+            <blockquote>
+            <p>Example response (201, Entity created successfully):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{&quot;entity_id&quot;: 1,&quot;entity_type&quot;: 1,&quot;data&quot;: {&quot;id&quot;: 1,&quot;title&quot;: &quot;Sample Title&quot;,&quot;description&quot;: &quot;This is a sample description&quot;,&quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;&quot;}}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Validation error):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;The given data was invalid.&quot;,
+    &quot;errors&quot;: {
+        &quot;entity_type&quot;: [
+            &quot;The selected entity type is invalid.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-entities" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-entities"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-entities"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-entities" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-entities">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-entities" data-method="POST"
+      data-path="api/v1/entities"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-entities', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-entities"
+                    onclick="tryItOut('POSTapi-v1-entities');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-entities"
+                    onclick="cancelTryOut('POSTapi-v1-entities');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-entities"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/entities</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-entities"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-entities"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>entity_type</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="entity_type"                data-endpoint="POSTapi-v1-entities"
+               value="1"
+               data-component="body">
+    <br>
+<p>The type of the entity. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-v1-entities"
+               value="Sample Title"
+               data-component="body">
+    <br>
+<p>The title of the entity. Example: <code>Sample Title</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-v1-entities"
+               value="This is a"
+               data-component="body">
+    <br>
+<p>The description of the entity. Example: <code>This is a</code></p>
+        </div>
+        </form>
+
+                    <h2 id="entities-POSTapi-v1-entities--entity_id--comment">POST api/v1/entities/{entity_id}/comment</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-entities--entity_id--comment">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://localhost/api/v1/entities/architecto/comment" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/entities/architecto/comment"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-entities--entity_id--comment">
+</span>
+<span id="execution-results-POSTapi-v1-entities--entity_id--comment" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-entities--entity_id--comment"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-entities--entity_id--comment"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-entities--entity_id--comment" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-entities--entity_id--comment">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-entities--entity_id--comment" data-method="POST"
+      data-path="api/v1/entities/{entity_id}/comment"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-entities--entity_id--comment', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-entities--entity_id--comment"
+                    onclick="tryItOut('POSTapi-v1-entities--entity_id--comment');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-entities--entity_id--comment"
+                    onclick="cancelTryOut('POSTapi-v1-entities--entity_id--comment');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-entities--entity_id--comment"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/entities/{entity_id}/comment</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-entities--entity_id--comment"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-entities--entity_id--comment"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>entity_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="entity_id"                data-endpoint="POSTapi-v1-entities--entity_id--comment"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the entity. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="entities-POSTapi-v1-comments--comment_id--update">POST api/v1/comments/{comment_id}/update</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-comments--comment_id--update">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://localhost/api/v1/comments/architecto/update" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/comments/architecto/update"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-comments--comment_id--update">
+</span>
+<span id="execution-results-POSTapi-v1-comments--comment_id--update" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-comments--comment_id--update"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-comments--comment_id--update"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-comments--comment_id--update" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-comments--comment_id--update">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-comments--comment_id--update" data-method="POST"
+      data-path="api/v1/comments/{comment_id}/update"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-comments--comment_id--update', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-comments--comment_id--update"
+                    onclick="tryItOut('POSTapi-v1-comments--comment_id--update');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-comments--comment_id--update"
+                    onclick="cancelTryOut('POSTapi-v1-comments--comment_id--update');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-comments--comment_id--update"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/comments/{comment_id}/update</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-comments--comment_id--update"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-comments--comment_id--update"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>comment_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="comment_id"                data-endpoint="POSTapi-v1-comments--comment_id--update"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the comment. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="entities-POSTapi-v1-comments--comment_id--delete">POST api/v1/comments/{comment_id}/delete</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-comments--comment_id--delete">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://localhost/api/v1/comments/architecto/delete" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/comments/architecto/delete"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-comments--comment_id--delete">
+</span>
+<span id="execution-results-POSTapi-v1-comments--comment_id--delete" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-comments--comment_id--delete"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-comments--comment_id--delete"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-comments--comment_id--delete" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-comments--comment_id--delete">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-comments--comment_id--delete" data-method="POST"
+      data-path="api/v1/comments/{comment_id}/delete"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-comments--comment_id--delete', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-comments--comment_id--delete"
+                    onclick="tryItOut('POSTapi-v1-comments--comment_id--delete');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-comments--comment_id--delete"
+                    onclick="cancelTryOut('POSTapi-v1-comments--comment_id--delete');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-comments--comment_id--delete"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/comments/{comment_id}/delete</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-comments--comment_id--delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-comments--comment_id--delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>comment_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="comment_id"                data-endpoint="POSTapi-v1-comments--comment_id--delete"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the comment. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                <h1 id="healthcheck">Healthcheck</h1>
 
     
 
@@ -254,7 +1149,321 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <br>
 <p>The status of this API (<code>ok</code> or <code>failed</code>).</p>
         </div>
-                
+                    <h1 id="news">News</h1>
+
+    
+
+                                <h2 id="news-GETapi-v1-news">List all news entities</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-news">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://localhost/api/v1/news?newsCursor=eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ%3D%3D" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/news"
+);
+
+const params = {
+    "newsCursor": "eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-news">
+            <blockquote>
+            <p>Example response (200, Successful response):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+      &quot;data&quot;: [{
+          &quot;id&quot;: 6,
+          &quot;entityable_type&quot;: &quot;news&quot;,
+          &quot;entityable_id&quot;: 5,
+          &quot;created_at&quot;: &quot;2026-01-15T12:34:42.000000Z&quot;,
+          &quot;data&quot;: {
+              &quot;id&quot;: 5,
+              &quot;title&quot;: &quot;Sample Title&quot;,
+              &quot;description&quot;: &quot;This is a&quot;
+          }
+      }],
+      &quot;meta&quot;: {
+          &quot;next_cursor&quot;: null,
+          &quot;prev_cursor&quot;: null,
+          &quot;per_page&quot;: 20
+      }
+ }&quot;</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-news" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-news"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-news"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-news" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-news">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-news" data-method="GET"
+      data-path="api/v1/news"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-news', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-news"
+                    onclick="tryItOut('GETapi-v1-news');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-news"
+                    onclick="cancelTryOut('GETapi-v1-news');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-news"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/news</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-news"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-news"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>newsCursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="newsCursor"                data-endpoint="GETapi-v1-news"
+               value="eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ=="
+               data-component="query">
+    <br>
+<p>The cursor for pagination. Example: <code>eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==</code></p>
+            </div>
+                </form>
+
+                <h1 id="video">Video</h1>
+
+    
+
+                                <h2 id="video-GETapi-v1-video">List all video post entities</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-video">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://localhost/api/v1/video?videoPostCursor=eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ%3D%3D" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://localhost/api/v1/video"
+);
+
+const params = {
+    "videoPostCursor": "eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-video">
+            <blockquote>
+            <p>Example response (200, Successful response):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+       &quot;data&quot;: [{
+           &quot;id&quot;: 6,
+           &quot;entityable_type&quot;: &quot;video&quot;,
+           &quot;entityable_id&quot;: 5,
+           &quot;created_at&quot;: &quot;2026-01-15T12:34:42.000000Z&quot;,
+           &quot;data&quot;: {
+               &quot;id&quot;: 5,
+               &quot;title&quot;: &quot;Sample Title&quot;,
+               &quot;description&quot;: &quot;This is a&quot;
+           }
+       }],
+       &quot;meta&quot;: {
+           &quot;next_cursor&quot;: null,
+           &quot;prev_cursor&quot;: null,
+           &quot;per_page&quot;: 20
+       }
+  }&quot;</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-video" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-video"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-video"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-video" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-video">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-video" data-method="GET"
+      data-path="api/v1/video"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-video', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-video"
+                    onclick="tryItOut('GETapi-v1-video');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-video"
+                    onclick="cancelTryOut('GETapi-v1-video');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-video"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/video</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-video"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-video"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>videoPostCursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="videoPostCursor"                data-endpoint="GETapi-v1-video"
+               value="eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ=="
+               data-component="query">
+    <br>
+<p>The cursor for pagination. Example: <code>eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==</code></p>
+            </div>
+                </form>
+
+            
 
         
     </div>

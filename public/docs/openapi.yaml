@@ -8,9 +8,224 @@ servers:
     url: 'https://localhost'
 tags:
   -
+    name: Entities
+    description: ''
+  -
     name: Healthcheck
     description: ''
+  -
+    name: News
+    description: ''
+  -
+    name: Video
+    description: ''
 paths:
+  /api/v1/entities:
+    get:
+      summary: 'List all entities'
+      operationId: listAllEntities
+      description: ''
+      parameters:
+        -
+          in: query
+          name: entitiesCursor
+          description: 'The cursor for pagination.'
+          example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+          required: false
+          schema:
+            type: string
+            description: 'The cursor for pagination.'
+            example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+      responses:
+        200:
+          description: 'Successful response'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n     \"data\": [\n     {\n         \"id\": 6,\n         \"entityable_type\": \"news\",\n         \"entityable_id\": 5,\n         \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n         \"data\": {\n             \"id\": 5,\n             \"title\": \"Sample Title\",\n             \"description\": \"This is a\"\n         }\n     }\n     ],\n     \"meta\": {\n         \"next_cursor\": null,\n         \"prev_cursor\": null,\n         \"per_page\": 20\n     }\n}\""
+      tags:
+        - Entities
+      security: []
+    post:
+      summary: 'Create new entity'
+      operationId: createNewEntity
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: 'Entity created successfully'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{"entity_id": 1,"entity_type": 1,"data": {"id": 1,"title": "Sample Title","description": "This is a sample description","created_at": "2024-01-01T00:00:00.000000Z""}}'
+        422:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    entity_type:
+                      - 'The selected entity type is invalid.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    properties:
+                      entity_type:
+                        type: array
+                        example:
+                          - 'The selected entity type is invalid.'
+                        items:
+                          type: string
+      tags:
+        - Entities
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity_type:
+                  type: integer
+                  description: 'The type of the entity.'
+                  example: 1
+                title:
+                  type: string
+                  description: 'The title of the entity.'
+                  example: 'Sample Title'
+                description:
+                  type: string
+                  description: 'The description of the entity.'
+                  example: 'This is a'
+              required:
+                - entity_type
+                - title
+                - description
+      security: []
+  '/api/v1/entities/{entity_id}':
+    get:
+      summary: 'Show single entity by id'
+      operationId: showSingleEntityById
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    entity_id: 1
+                    entity_type: news
+                    entity_data:
+                      id: 1
+                      title: 'Sample Title'
+                      description: 'This is a news'
+                    created_at: '2026-01-15T12:22:49.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      entity_id:
+                        type: integer
+                        example: 1
+                      entity_type:
+                        type: string
+                        example: news
+                      entity_data:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          title:
+                            type: string
+                            example: 'Sample Title'
+                          description:
+                            type: string
+                            example: 'This is a news'
+                      created_at:
+                        type: string
+                        example: '2026-01-15T12:22:49.000000Z'
+      tags:
+        - Entities
+      security: []
+    parameters:
+      -
+        in: path
+        name: entity_id
+        description: 'The ID of the entity.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/entities/{entity_id}/comment':
+    post:
+      summary: ''
+      operationId: postApiV1EntitiesEntity_idComment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Entities
+      security: []
+    parameters:
+      -
+        in: path
+        name: entity_id
+        description: 'The ID of the entity.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/comments/{comment_id}/update':
+    post:
+      summary: ''
+      operationId: postApiV1CommentsComment_idUpdate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Entities
+      security: []
+    parameters:
+      -
+        in: path
+        name: comment_id
+        description: 'The ID of the comment.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/comments/{comment_id}/delete':
+    post:
+      summary: ''
+      operationId: postApiV1CommentsComment_idDelete
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Entities
+      security: []
+    parameters:
+      -
+        in: path
+        name: comment_id
+        description: 'The ID of the comment.'
+        example: architecto
+        required: true
+        schema:
+          type: string
   /api/v1/health:
     get:
       summary: Healthcheck
@@ -48,4 +263,58 @@ paths:
                     enum: []
       tags:
         - Healthcheck
+      security: []
+  /api/v1/news:
+    get:
+      summary: 'List all news entities'
+      operationId: listAllNewsEntities
+      description: ''
+      parameters:
+        -
+          in: query
+          name: newsCursor
+          description: 'The cursor for pagination.'
+          example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+          required: false
+          schema:
+            type: string
+            description: 'The cursor for pagination.'
+            example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+      responses:
+        200:
+          description: 'Successful response'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n      \"data\": [{\n          \"id\": 6,\n          \"entityable_type\": \"news\",\n          \"entityable_id\": 5,\n          \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n          \"data\": {\n              \"id\": 5,\n              \"title\": \"Sample Title\",\n              \"description\": \"This is a\"\n          }\n      }],\n      \"meta\": {\n          \"next_cursor\": null,\n          \"prev_cursor\": null,\n          \"per_page\": 20\n      }\n }\""
+      tags:
+        - News
+      security: []
+  /api/v1/video:
+    get:
+      summary: 'List all video post entities'
+      operationId: listAllVideoPostEntities
+      description: ''
+      parameters:
+        -
+          in: query
+          name: videoPostCursor
+          description: 'The cursor for pagination.'
+          example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+          required: false
+          schema:
+            type: string
+            description: 'The cursor for pagination.'
+            example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
+      responses:
+        200:
+          description: 'Successful response'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n       \"data\": [{\n           \"id\": 6,\n           \"entityable_type\": \"video\",\n           \"entityable_id\": 5,\n           \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n           \"data\": {\n               \"id\": 5,\n               \"title\": \"Sample Title\",\n               \"description\": \"This is a\"\n           }\n       }],\n       \"meta\": {\n           \"next_cursor\": null,\n           \"prev_cursor\": null,\n           \"per_page\": 20\n       }\n  }\""
+      tags:
+        - Video
       security: []

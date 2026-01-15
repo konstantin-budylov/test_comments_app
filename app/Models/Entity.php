@@ -6,6 +6,7 @@ use App\Enums\EntityTypes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Entity extends Model
@@ -24,6 +25,12 @@ class Entity extends Model
     final public function entityable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    final public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->with('children');
+        // рекурсивно загружать дочерние, если нужно
     }
 
     public function scopeOfType(Builder $query, EntityTypes $type): Builder

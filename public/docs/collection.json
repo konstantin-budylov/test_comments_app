@@ -10,11 +10,170 @@
     ],
     "info": {
         "name": "Comments App API Documentation",
-        "_postman_id": "c56a2ad4-7914-4160-ba23-ea24bc67da5d",
+        "_postman_id": "e753bba2-023e-42af-a362-e34ace0b4f4f",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Comments",
+            "description": "",
+            "item": [
+                {
+                    "name": "Create entity comment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/entities\/:entity_id\/comment",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/entities\/:entity_id\/comment",
+                            "variable": [
+                                {
+                                    "id": "entity_id",
+                                    "key": "entity_id",
+                                    "value": "1",
+                                    "description": "The ID of the entity."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":1,\"text\":\"This is a comment.\",\"parent_id\":2}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List all entity comments",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/comments\/:entity_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/comments\/:entity_id",
+                            "variable": [
+                                {
+                                    "id": "entity_id",
+                                    "key": "entity_id",
+                                    "value": "1",
+                                    "description": "The ID of the entity."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update comment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/comments\/:comment_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/comments\/:comment_id",
+                            "variable": [
+                                {
+                                    "id": "comment_id",
+                                    "key": "comment_id",
+                                    "value": "1",
+                                    "description": "The ID of the comment."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":16,\"text\":\"Updated comment text.\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete comment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/comments\/:comment_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/comments\/:comment_id",
+                            "variable": [
+                                {
+                                    "id": "comment_id",
+                                    "key": "comment_id",
+                                    "value": "1",
+                                    "description": "The ID of the comment."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":\"architecto\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
         {
             "name": "Entities",
             "description": "",
@@ -54,10 +213,23 @@
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n     \"data\": [\n     {\n         \"id\": 6,\n         \"entityable_type\": \"news\",\n         \"entityable_id\": 5,\n         \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n         \"data\": {\n             \"id\": 5,\n             \"title\": \"Sample Title\",\n             \"description\": \"This is a\"\n         }\n     }\n     ],\n     \"meta\": {\n         \"next_cursor\": null,\n         \"prev_cursor\": null,\n         \"per_page\": 20\n     }\n}\"",
-                            "name": "Successful response"
+                            "body": "{\"data\":[{\"entity_id\":8,\"entity_type\":\"video\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:17:09.000000Z\"},{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":2,\"entity_type\":\"video\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title sdfsdfsdf\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:49.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "name": ""
                         }
                     ]
                 },
@@ -67,13 +239,20 @@
                         "url": {
                             "host": "{{baseUrl}}",
                             "path": "api\/v1\/entities\/:entity_id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/entities\/:entity_id",
+                            "query": [
+                                {
+                                    "key": "commentsCursor",
+                                    "value": "eyJpZCI6MiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjIyOjQ5LjAwMDAwMFoifQ%3D%3D",
+                                    "description": "The cursor for pagination of comments.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/entities\/:entity_id?commentsCursor=eyJpZCI6MiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjIyOjQ5LjAwMDAwMFoifQ%3D%3D",
                             "variable": [
                                 {
                                     "id": "entity_id",
                                     "key": "entity_id",
-                                    "value": "architecto",
+                                    "value": "1",
                                     "description": "The ID of the entity."
                                 }
                             ]
@@ -97,10 +276,23 @@
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n\"data\": {\n\"entity_id\": 1,\n\"entity_type\": \"news\",\n\"entity_data\": {\n\"id\": 1,\n\"title\": \"Sample Title\",\n\"description\": \"This is a news\"\n},\n\"created_at\": \"2026-01-15T12:22:49.000000Z\"\n}\n}",
-                            "name": "Successful response"
+                            "body": "{\"data\":{\"entity\":{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"},\"comments\":[{\"id\":1,\"user_id\":7,\"text\":\"Updated comment text.\",\"parent_id\":null,\"created_at\":\"2026-01-15T14:38:06.000000Z\",\"children\":[{\"id\":7,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":1,\"created_at\":\"2026-01-15T14:38:20.000000Z\",\"children\":[]},{\"id\":6,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":1,\"created_at\":\"2026-01-15T14:38:18.000000Z\",\"children\":[]}]},{\"id\":2,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":null,\"created_at\":\"2026-01-15T14:38:10.000000Z\",\"children\":[{\"id\":8,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":2,\"created_at\":\"2026-01-15T14:38:26.000000Z\",\"children\":[]}]},{\"id\":3,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":null,\"created_at\":\"2026-01-15T14:38:11.000000Z\",\"children\":[{\"id\":9,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":3,\"created_at\":\"2026-01-15T14:39:31.000000Z\",\"children\":[]}]},{\"id\":4,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":null,\"created_at\":\"2026-01-15T14:38:12.000000Z\",\"children\":[]},{\"id\":5,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":null,\"created_at\":\"2026-01-15T14:38:12.000000Z\",\"children\":[]},{\"id\":6,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":1,\"created_at\":\"2026-01-15T14:38:18.000000Z\",\"children\":[]},{\"id\":7,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":1,\"created_at\":\"2026-01-15T14:38:20.000000Z\",\"children\":[]},{\"id\":8,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":2,\"created_at\":\"2026-01-15T14:38:26.000000Z\",\"children\":[]},{\"id\":9,\"user_id\":7,\"text\":\"This is a comment.\",\"parent_id\":3,\"created_at\":\"2026-01-15T14:39:31.000000Z\",\"children\":[]}]},\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "name": ""
                         }
                     ]
                 },
@@ -126,129 +318,8 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"entity_type\":1,\"title\":\"Sample Title\",\"description\":\"This is a\"}"
+                            "raw": "{\"entity_type\":1,\"title\":\"Sample Title\",\"description\":\"This is a description\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 201,
-                            "body": "{\"entity_id\": 1,\"entity_type\": 1,\"data\": {\"id\": 1,\"title\": \"Sample Title\",\"description\": \"This is a sample description\",\"created_at\": \"2024-01-01T00:00:00.000000Z\"\"}}",
-                            "name": "Entity created successfully"
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\"message\": \"The given data was invalid.\",\"errors\": {\"entity_type\": [\"The selected entity type is invalid.\"]}}",
-                            "name": "Validation error"
-                        }
-                    ]
-                },
-                {
-                    "name": "POST api\/v1\/entities\/{entity_id}\/comment",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/v1\/entities\/:entity_id\/comment",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/entities\/:entity_id\/comment",
-                            "variable": [
-                                {
-                                    "id": "entity_id",
-                                    "key": "entity_id",
-                                    "value": "architecto",
-                                    "description": "The ID of the entity."
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "POST api\/v1\/comments\/{comment_id}\/update",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/v1\/comments\/:comment_id\/update",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/comments\/:comment_id\/update",
-                            "variable": [
-                                {
-                                    "id": "comment_id",
-                                    "key": "comment_id",
-                                    "value": "architecto",
-                                    "description": "The ID of the comment."
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "POST api\/v1\/comments\/{comment_id}\/delete",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/v1\/comments\/:comment_id\/delete",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/comments\/:comment_id\/delete",
-                            "variable": [
-                                {
-                                    "id": "comment_id",
-                                    "key": "comment_id",
-                                    "value": "architecto",
-                                    "description": "The ID of the comment."
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -283,7 +354,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "Check that the service is up. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and a response listing the failed services.",
+                        "description": "",
                         "auth": {
                             "type": "noauth"
                         }
@@ -307,12 +378,6 @@
                             "code": 200,
                             "body": "{\"status\":\"ok\"}",
                             "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\"status\": \"failed\"}",
-                            "name": "Service is unhealthy"
                         }
                     ]
                 }
@@ -357,10 +422,23 @@
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n      \"data\": [{\n          \"id\": 6,\n          \"entityable_type\": \"news\",\n          \"entityable_id\": 5,\n          \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n          \"data\": {\n              \"id\": 5,\n              \"title\": \"Sample Title\",\n              \"description\": \"This is a\"\n          }\n      }],\n      \"meta\": {\n          \"next_cursor\": null,\n          \"prev_cursor\": null,\n          \"per_page\": 20\n      }\n }\"",
-                            "name": "Successful response"
+                            "body": "{\"data\":[{\"entity_id\":7,\"entity_type\":\"news\",\"entity_data\":{\"id\":6,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:15:50.000000Z\"},{\"entity_id\":6,\"entity_type\":\"news\",\"entity_data\":{\"id\":5,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:34:42.000000Z\"},{\"entity_id\":5,\"entity_type\":\"news\",\"entity_data\":{\"id\":4,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:33:38.000000Z\"},{\"entity_id\":4,\"entity_type\":\"news\",\"entity_data\":{\"id\":3,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:24.000000Z\"},{\"entity_id\":3,\"entity_type\":\"news\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T12:25:07.000000Z\"},{\"entity_id\":1,\"entity_type\":\"news\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:32.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "name": ""
                         }
                     ]
                 }
@@ -405,10 +483,23 @@
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n       \"data\": [{\n           \"id\": 6,\n           \"entityable_type\": \"video\",\n           \"entityable_id\": 5,\n           \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n           \"data\": {\n               \"id\": 5,\n               \"title\": \"Sample Title\",\n               \"description\": \"This is a\"\n           }\n       }],\n       \"meta\": {\n           \"next_cursor\": null,\n           \"prev_cursor\": null,\n           \"per_page\": 20\n       }\n  }\"",
-                            "name": "Successful response"
+                            "body": "{\"data\":[{\"entity_id\":8,\"entity_type\":\"video\",\"entity_data\":{\"id\":2,\"title\":\"Sample Title\",\"description\":\"This is a\"},\"created_at\":\"2026-01-15T13:17:09.000000Z\"},{\"entity_id\":2,\"entity_type\":\"video\",\"entity_data\":{\"id\":1,\"title\":\"Sample Title sdfsdfsdf\",\"description\":\"This is a asasdasdasd\"},\"created_at\":\"2026-01-15T12:22:49.000000Z\"}],\"meta\":{\"next_cursor\":null,\"prev_cursor\":null,\"per_page\":20}}",
+                            "name": ""
                         }
                     ]
                 }

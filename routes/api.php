@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\EntitiesController;
 use App\Http\Controllers\Api\V1\NewsController;
 use App\Http\Controllers\Api\V1\VideoPostController;
@@ -27,7 +28,7 @@ Route::middleware('api')->group(function () {
             Route::get('/', [EntitiesController::class, 'index']);
             Route::get('/{entity_id}', [EntitiesController::class, 'view']);
             Route::post('/', [EntitiesController::class, 'create']);
-            Route::post('/{entity_id}/comment', [\App\Http\Controllers\Api\V1\CommentsController::class, 'create']);
+            Route::post('/{entity_id}/comment', [CommentsController::class, 'create']);
         });
 
         Route::prefix('news')->group(function () {
@@ -39,11 +40,9 @@ Route::middleware('api')->group(function () {
         });
 
         Route::prefix('comments')->group(function () {
-            Route::post('/{comment_id}/update', [\App\Http\Controllers\Api\V1\CommentsController::class, 'update']);
-            Route::post('/{comment_id}/delete', [\App\Http\Controllers\Api\V1\CommentsController::class, 'delete']);
+            Route::post('/{entity_id}', [CommentsController::class, 'index']);
+            Route::put('/{comment}', [CommentsController::class, 'update']);
+            Route::delete('/{comment}', [CommentsController::class, 'destroy']);
         });
-
     });
-
-
 });

@@ -17,25 +17,6 @@ class VideoPostController extends Controller
      * @group Video
      *
      * @queryParam videoPostCursor string The cursor for pagination. Example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
-     * @response 200 scenario="Successful response" {
-     *        "data": [{
-     *            "id": 6,
-     *            "entityable_type": "video",
-     *            "entityable_id": 5,
-     *            "created_at": "2026-01-15T12:34:42.000000Z",
-     *            "data": {
-     *                "id": 5,
-     *                "title": "Sample Title",
-     *                "description": "This is a"
-     *            }
-     *        }],
-     *        "meta": {
-     *            "next_cursor": null,
-     *            "prev_cursor": null,
-     *            "per_page": 20
-     *        }
-     *   }"
-     *
      * @param Request $request
      * @return JsonResponse
      */

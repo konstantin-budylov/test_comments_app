@@ -8,6 +8,9 @@ servers:
     url: 'https://localhost'
 tags:
   -
+    name: Comments
+    description: ''
+  -
     name: Entities
     description: ''
   -
@@ -20,6 +23,126 @@ tags:
     name: Video
     description: ''
 paths:
+  '/api/v1/entities/{entity_id}/comment':
+    post:
+      summary: 'Create entity comment'
+      operationId: createEntityComment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: user_id.
+                  example: 1
+                text:
+                  type: string
+                  description: 'comment text.'
+                  example: 'This is a comment.'
+                parent_id:
+                  type: integer
+                  description: 'parent comment id.'
+                  example: 2
+                  nullable: true
+              required:
+                - user_id
+                - text
+      security: []
+    parameters:
+      -
+        in: path
+        name: entity_id
+        description: 'The ID of the entity.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/v1/comments/{entity_id}':
+    post:
+      summary: 'List all entity comments'
+      operationId: listAllEntityComments
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Comments
+      security: []
+    parameters:
+      -
+        in: path
+        name: entity_id
+        description: 'The ID of the entity.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/v1/comments/{comment_id}':
+    put:
+      summary: 'Update comment'
+      operationId: updateComment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: 'ID of the user attempting to update the comment.'
+                  example: 16
+                text:
+                  type: string
+                  description: 'New text for the comment.'
+                  example: 'Updated comment text.'
+              required:
+                - user_id
+                - text
+      security: []
+    delete:
+      summary: 'Delete comment'
+      operationId: deleteComment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the users table.'
+                  example: architecto
+              required:
+                - user_id
+      security: []
+    parameters:
+      -
+        in: path
+        name: comment_id
+        description: 'The ID of the comment.'
+        example: 1
+        required: true
+        schema:
+          type: integer
   /api/v1/entities:
     get:
       summary: 'List all entities'
@@ -38,12 +161,185 @@ paths:
             example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
       responses:
         200:
-          description: 'Successful response'
+          description: ''
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: "{\n     \"data\": [\n     {\n         \"id\": 6,\n         \"entityable_type\": \"news\",\n         \"entityable_id\": 5,\n         \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n         \"data\": {\n             \"id\": 5,\n             \"title\": \"Sample Title\",\n             \"description\": \"This is a\"\n         }\n     }\n     ],\n     \"meta\": {\n         \"next_cursor\": null,\n         \"prev_cursor\": null,\n         \"per_page\": 20\n     }\n}\""
+                type: object
+                example:
+                  data:
+                    -
+                      entity_id: 8
+                      entity_type: video
+                      entity_data:
+                        id: 2
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T13:17:09.000000Z'
+                    -
+                      entity_id: 7
+                      entity_type: news
+                      entity_data:
+                        id: 6
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T13:15:50.000000Z'
+                    -
+                      entity_id: 6
+                      entity_type: news
+                      entity_data:
+                        id: 5
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:34:42.000000Z'
+                    -
+                      entity_id: 5
+                      entity_type: news
+                      entity_data:
+                        id: 4
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:33:38.000000Z'
+                    -
+                      entity_id: 4
+                      entity_type: news
+                      entity_data:
+                        id: 3
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:25:24.000000Z'
+                    -
+                      entity_id: 3
+                      entity_type: news
+                      entity_data:
+                        id: 2
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:25:07.000000Z'
+                    -
+                      entity_id: 2
+                      entity_type: video
+                      entity_data:
+                        id: 1
+                        title: 'Sample Title sdfsdfsdf'
+                        description: 'This is a asasdasdasd'
+                      created_at: '2026-01-15T12:22:49.000000Z'
+                    -
+                      entity_id: 1
+                      entity_type: news
+                      entity_data:
+                        id: 1
+                        title: 'Sample Title'
+                        description: 'This is a asasdasdasd'
+                      created_at: '2026-01-15T12:22:32.000000Z'
+                  meta:
+                    next_cursor: null
+                    prev_cursor: null
+                    per_page: 20
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        entity_id: 8
+                        entity_type: video
+                        entity_data:
+                          id: 2
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T13:17:09.000000Z'
+                      -
+                        entity_id: 7
+                        entity_type: news
+                        entity_data:
+                          id: 6
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T13:15:50.000000Z'
+                      -
+                        entity_id: 6
+                        entity_type: news
+                        entity_data:
+                          id: 5
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:34:42.000000Z'
+                      -
+                        entity_id: 5
+                        entity_type: news
+                        entity_data:
+                          id: 4
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:33:38.000000Z'
+                      -
+                        entity_id: 4
+                        entity_type: news
+                        entity_data:
+                          id: 3
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:25:24.000000Z'
+                      -
+                        entity_id: 3
+                        entity_type: news
+                        entity_data:
+                          id: 2
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:25:07.000000Z'
+                      -
+                        entity_id: 2
+                        entity_type: video
+                        entity_data:
+                          id: 1
+                          title: 'Sample Title sdfsdfsdf'
+                          description: 'This is a asasdasdasd'
+                        created_at: '2026-01-15T12:22:49.000000Z'
+                      -
+                        entity_id: 1
+                        entity_type: news
+                        entity_data:
+                          id: 1
+                          title: 'Sample Title'
+                          description: 'This is a asasdasdasd'
+                        created_at: '2026-01-15T12:22:32.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        entity_id:
+                          type: integer
+                          example: 8
+                        entity_type:
+                          type: string
+                          example: video
+                        entity_data:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            title:
+                              type: string
+                              example: 'Sample Title'
+                            description:
+                              type: string
+                              example: 'This is a'
+                        created_at:
+                          type: string
+                          example: '2026-01-15T13:17:09.000000Z'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        example: null
+                      prev_cursor:
+                        type: string
+                        example: null
+                      per_page:
+                        type: integer
+                        example: 20
       tags:
         - Entities
       security: []
@@ -52,38 +348,7 @@ paths:
       operationId: createNewEntity
       description: ''
       parameters: []
-      responses:
-        201:
-          description: 'Entity created successfully'
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: '{"entity_id": 1,"entity_type": 1,"data": {"id": 1,"title": "Sample Title","description": "This is a sample description","created_at": "2024-01-01T00:00:00.000000Z""}}'
-        422:
-          description: 'Validation error'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'The given data was invalid.'
-                  errors:
-                    entity_type:
-                      - 'The selected entity type is invalid.'
-                properties:
-                  message:
-                    type: string
-                    example: 'The given data was invalid.'
-                  errors:
-                    type: object
-                    properties:
-                      entity_type:
-                        type: array
-                        example:
-                          - 'The selected entity type is invalid.'
-                        items:
-                          type: string
+      responses: {  }
       tags:
         - Entities
       requestBody:
@@ -102,9 +367,9 @@ paths:
                   description: 'The title of the entity.'
                   example: 'Sample Title'
                 description:
-                  type: string
+                  type: text
                   description: 'The description of the entity.'
-                  example: 'This is a'
+                  example: 'This is a description'
               required:
                 - entity_type
                 - title
@@ -115,48 +380,320 @@ paths:
       summary: 'Show single entity by id'
       operationId: showSingleEntityById
       description: ''
-      parameters: []
+      parameters:
+        -
+          in: query
+          name: commentsCursor
+          description: 'The cursor for pagination of comments.'
+          example: eyJpZCI6MiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjIyOjQ5LjAwMDAwMFoifQ==
+          required: false
+          schema:
+            type: string
+            description: 'The cursor for pagination of comments.'
+            example: eyJpZCI6MiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjIyOjQ5LjAwMDAwMFoifQ==
       responses:
         200:
-          description: 'Successful response'
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
                   data:
-                    entity_id: 1
-                    entity_type: news
-                    entity_data:
-                      id: 1
-                      title: 'Sample Title'
-                      description: 'This is a news'
-                    created_at: '2026-01-15T12:22:49.000000Z'
+                    entity:
+                      entity_id: 1
+                      entity_type: news
+                      entity_data:
+                        id: 1
+                        title: 'Sample Title'
+                        description: 'This is a asasdasdasd'
+                      created_at: '2026-01-15T12:22:32.000000Z'
+                    comments:
+                      -
+                        id: 1
+                        user_id: 7
+                        text: 'Updated comment text.'
+                        parent_id: null
+                        created_at: '2026-01-15T14:38:06.000000Z'
+                        children:
+                          -
+                            id: 7
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 1
+                            created_at: '2026-01-15T14:38:20.000000Z'
+                            children: []
+                          -
+                            id: 6
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 1
+                            created_at: '2026-01-15T14:38:18.000000Z'
+                            children: []
+                      -
+                        id: 2
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: null
+                        created_at: '2026-01-15T14:38:10.000000Z'
+                        children:
+                          -
+                            id: 8
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 2
+                            created_at: '2026-01-15T14:38:26.000000Z'
+                            children: []
+                      -
+                        id: 3
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: null
+                        created_at: '2026-01-15T14:38:11.000000Z'
+                        children:
+                          -
+                            id: 9
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 3
+                            created_at: '2026-01-15T14:39:31.000000Z'
+                            children: []
+                      -
+                        id: 4
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: null
+                        created_at: '2026-01-15T14:38:12.000000Z'
+                        children: []
+                      -
+                        id: 5
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: null
+                        created_at: '2026-01-15T14:38:12.000000Z'
+                        children: []
+                      -
+                        id: 6
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: 1
+                        created_at: '2026-01-15T14:38:18.000000Z'
+                        children: []
+                      -
+                        id: 7
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: 1
+                        created_at: '2026-01-15T14:38:20.000000Z'
+                        children: []
+                      -
+                        id: 8
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: 2
+                        created_at: '2026-01-15T14:38:26.000000Z'
+                        children: []
+                      -
+                        id: 9
+                        user_id: 7
+                        text: 'This is a comment.'
+                        parent_id: 3
+                        created_at: '2026-01-15T14:39:31.000000Z'
+                        children: []
+                  meta:
+                    next_cursor: null
+                    prev_cursor: null
+                    per_page: 20
                 properties:
                   data:
                     type: object
                     properties:
-                      entity_id:
-                        type: integer
-                        example: 1
-                      entity_type:
-                        type: string
-                        example: news
-                      entity_data:
+                      entity:
                         type: object
                         properties:
-                          id:
+                          entity_id:
                             type: integer
                             example: 1
-                          title:
+                          entity_type:
                             type: string
-                            example: 'Sample Title'
-                          description:
+                            example: news
+                          entity_data:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              title:
+                                type: string
+                                example: 'Sample Title'
+                              description:
+                                type: string
+                                example: 'This is a asasdasdasd'
+                          created_at:
                             type: string
-                            example: 'This is a news'
-                      created_at:
+                            example: '2026-01-15T12:22:32.000000Z'
+                      comments:
+                        type: array
+                        example:
+                          -
+                            id: 1
+                            user_id: 7
+                            text: 'Updated comment text.'
+                            parent_id: null
+                            created_at: '2026-01-15T14:38:06.000000Z'
+                            children:
+                              -
+                                id: 7
+                                user_id: 7
+                                text: 'This is a comment.'
+                                parent_id: 1
+                                created_at: '2026-01-15T14:38:20.000000Z'
+                                children: []
+                              -
+                                id: 6
+                                user_id: 7
+                                text: 'This is a comment.'
+                                parent_id: 1
+                                created_at: '2026-01-15T14:38:18.000000Z'
+                                children: []
+                          -
+                            id: 2
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: null
+                            created_at: '2026-01-15T14:38:10.000000Z'
+                            children:
+                              -
+                                id: 8
+                                user_id: 7
+                                text: 'This is a comment.'
+                                parent_id: 2
+                                created_at: '2026-01-15T14:38:26.000000Z'
+                                children: []
+                          -
+                            id: 3
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: null
+                            created_at: '2026-01-15T14:38:11.000000Z'
+                            children:
+                              -
+                                id: 9
+                                user_id: 7
+                                text: 'This is a comment.'
+                                parent_id: 3
+                                created_at: '2026-01-15T14:39:31.000000Z'
+                                children: []
+                          -
+                            id: 4
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: null
+                            created_at: '2026-01-15T14:38:12.000000Z'
+                            children: []
+                          -
+                            id: 5
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: null
+                            created_at: '2026-01-15T14:38:12.000000Z'
+                            children: []
+                          -
+                            id: 6
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 1
+                            created_at: '2026-01-15T14:38:18.000000Z'
+                            children: []
+                          -
+                            id: 7
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 1
+                            created_at: '2026-01-15T14:38:20.000000Z'
+                            children: []
+                          -
+                            id: 8
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 2
+                            created_at: '2026-01-15T14:38:26.000000Z'
+                            children: []
+                          -
+                            id: 9
+                            user_id: 7
+                            text: 'This is a comment.'
+                            parent_id: 3
+                            created_at: '2026-01-15T14:39:31.000000Z'
+                            children: []
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            user_id:
+                              type: integer
+                              example: 7
+                            text:
+                              type: string
+                              example: 'Updated comment text.'
+                            parent_id:
+                              type: string
+                              example: null
+                            created_at:
+                              type: string
+                              example: '2026-01-15T14:38:06.000000Z'
+                            children:
+                              type: array
+                              example:
+                                -
+                                  id: 7
+                                  user_id: 7
+                                  text: 'This is a comment.'
+                                  parent_id: 1
+                                  created_at: '2026-01-15T14:38:20.000000Z'
+                                  children: []
+                                -
+                                  id: 6
+                                  user_id: 7
+                                  text: 'This is a comment.'
+                                  parent_id: 1
+                                  created_at: '2026-01-15T14:38:18.000000Z'
+                                  children: []
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 7
+                                  user_id:
+                                    type: integer
+                                    example: 7
+                                  text:
+                                    type: string
+                                    example: 'This is a comment.'
+                                  parent_id:
+                                    type: integer
+                                    example: 1
+                                  created_at:
+                                    type: string
+                                    example: '2026-01-15T14:38:20.000000Z'
+                                  children:
+                                    type: array
+                                    example: []
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
                         type: string
-                        example: '2026-01-15T12:22:49.000000Z'
+                        example: null
+                      prev_cursor:
+                        type: string
+                        example: null
+                      per_page:
+                        type: integer
+                        example: 20
       tags:
         - Entities
       security: []
@@ -165,72 +702,15 @@ paths:
         in: path
         name: entity_id
         description: 'The ID of the entity.'
-        example: architecto
+        example: 1
         required: true
         schema:
-          type: string
-  '/api/v1/entities/{entity_id}/comment':
-    post:
-      summary: ''
-      operationId: postApiV1EntitiesEntity_idComment
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Entities
-      security: []
-    parameters:
-      -
-        in: path
-        name: entity_id
-        description: 'The ID of the entity.'
-        example: architecto
-        required: true
-        schema:
-          type: string
-  '/api/v1/comments/{comment_id}/update':
-    post:
-      summary: ''
-      operationId: postApiV1CommentsComment_idUpdate
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Entities
-      security: []
-    parameters:
-      -
-        in: path
-        name: comment_id
-        description: 'The ID of the comment.'
-        example: architecto
-        required: true
-        schema:
-          type: string
-  '/api/v1/comments/{comment_id}/delete':
-    post:
-      summary: ''
-      operationId: postApiV1CommentsComment_idDelete
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Entities
-      security: []
-    parameters:
-      -
-        in: path
-        name: comment_id
-        description: 'The ID of the comment.'
-        example: architecto
-        required: true
-        schema:
-          type: string
+          type: integer
   /api/v1/health:
     get:
       summary: Healthcheck
       operationId: healthcheck
-      description: "Check that the service is up. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and a response listing the failed services."
+      description: ''
       parameters: []
       responses:
         200:
@@ -245,22 +725,6 @@ paths:
                   status:
                     type: string
                     example: ok
-                    description: 'The status of this API (`ok` or `failed`).'
-                    enum: []
-        400:
-          description: 'Service is unhealthy'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  status: failed
-                properties:
-                  status:
-                    type: string
-                    example: failed
-                    description: 'The status of this API (`ok` or `failed`).'
-                    enum: []
       tags:
         - Healthcheck
       security: []
@@ -282,12 +746,153 @@ paths:
             example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
       responses:
         200:
-          description: 'Successful response'
+          description: ''
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: "{\n      \"data\": [{\n          \"id\": 6,\n          \"entityable_type\": \"news\",\n          \"entityable_id\": 5,\n          \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n          \"data\": {\n              \"id\": 5,\n              \"title\": \"Sample Title\",\n              \"description\": \"This is a\"\n          }\n      }],\n      \"meta\": {\n          \"next_cursor\": null,\n          \"prev_cursor\": null,\n          \"per_page\": 20\n      }\n }\""
+                type: object
+                example:
+                  data:
+                    -
+                      entity_id: 7
+                      entity_type: news
+                      entity_data:
+                        id: 6
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T13:15:50.000000Z'
+                    -
+                      entity_id: 6
+                      entity_type: news
+                      entity_data:
+                        id: 5
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:34:42.000000Z'
+                    -
+                      entity_id: 5
+                      entity_type: news
+                      entity_data:
+                        id: 4
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:33:38.000000Z'
+                    -
+                      entity_id: 4
+                      entity_type: news
+                      entity_data:
+                        id: 3
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:25:24.000000Z'
+                    -
+                      entity_id: 3
+                      entity_type: news
+                      entity_data:
+                        id: 2
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T12:25:07.000000Z'
+                    -
+                      entity_id: 1
+                      entity_type: news
+                      entity_data:
+                        id: 1
+                        title: 'Sample Title'
+                        description: 'This is a asasdasdasd'
+                      created_at: '2026-01-15T12:22:32.000000Z'
+                  meta:
+                    next_cursor: null
+                    prev_cursor: null
+                    per_page: 20
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        entity_id: 7
+                        entity_type: news
+                        entity_data:
+                          id: 6
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T13:15:50.000000Z'
+                      -
+                        entity_id: 6
+                        entity_type: news
+                        entity_data:
+                          id: 5
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:34:42.000000Z'
+                      -
+                        entity_id: 5
+                        entity_type: news
+                        entity_data:
+                          id: 4
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:33:38.000000Z'
+                      -
+                        entity_id: 4
+                        entity_type: news
+                        entity_data:
+                          id: 3
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:25:24.000000Z'
+                      -
+                        entity_id: 3
+                        entity_type: news
+                        entity_data:
+                          id: 2
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T12:25:07.000000Z'
+                      -
+                        entity_id: 1
+                        entity_type: news
+                        entity_data:
+                          id: 1
+                          title: 'Sample Title'
+                          description: 'This is a asasdasdasd'
+                        created_at: '2026-01-15T12:22:32.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        entity_id:
+                          type: integer
+                          example: 7
+                        entity_type:
+                          type: string
+                          example: news
+                        entity_data:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 6
+                            title:
+                              type: string
+                              example: 'Sample Title'
+                            description:
+                              type: string
+                              example: 'This is a'
+                        created_at:
+                          type: string
+                          example: '2026-01-15T13:15:50.000000Z'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        example: null
+                      prev_cursor:
+                        type: string
+                        example: null
+                      per_page:
+                        type: integer
+                        example: 20
       tags:
         - News
       security: []
@@ -309,12 +914,89 @@ paths:
             example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
       responses:
         200:
-          description: 'Successful response'
+          description: ''
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: "{\n       \"data\": [{\n           \"id\": 6,\n           \"entityable_type\": \"video\",\n           \"entityable_id\": 5,\n           \"created_at\": \"2026-01-15T12:34:42.000000Z\",\n           \"data\": {\n               \"id\": 5,\n               \"title\": \"Sample Title\",\n               \"description\": \"This is a\"\n           }\n       }],\n       \"meta\": {\n           \"next_cursor\": null,\n           \"prev_cursor\": null,\n           \"per_page\": 20\n       }\n  }\""
+                type: object
+                example:
+                  data:
+                    -
+                      entity_id: 8
+                      entity_type: video
+                      entity_data:
+                        id: 2
+                        title: 'Sample Title'
+                        description: 'This is a'
+                      created_at: '2026-01-15T13:17:09.000000Z'
+                    -
+                      entity_id: 2
+                      entity_type: video
+                      entity_data:
+                        id: 1
+                        title: 'Sample Title sdfsdfsdf'
+                        description: 'This is a asasdasdasd'
+                      created_at: '2026-01-15T12:22:49.000000Z'
+                  meta:
+                    next_cursor: null
+                    prev_cursor: null
+                    per_page: 20
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        entity_id: 8
+                        entity_type: video
+                        entity_data:
+                          id: 2
+                          title: 'Sample Title'
+                          description: 'This is a'
+                        created_at: '2026-01-15T13:17:09.000000Z'
+                      -
+                        entity_id: 2
+                        entity_type: video
+                        entity_data:
+                          id: 1
+                          title: 'Sample Title sdfsdfsdf'
+                          description: 'This is a asasdasdasd'
+                        created_at: '2026-01-15T12:22:49.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        entity_id:
+                          type: integer
+                          example: 8
+                        entity_type:
+                          type: string
+                          example: video
+                        entity_data:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            title:
+                              type: string
+                              example: 'Sample Title'
+                            description:
+                              type: string
+                              example: 'This is a'
+                        created_at:
+                          type: string
+                          example: '2026-01-15T13:17:09.000000Z'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        example: null
+                      prev_cursor:
+                        type: string
+                        example: null
+                      per_page:
+                        type: integer
+                        example: 20
       tags:
         - Video
       security: []

@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api\V1;
 use App\Enums\EntityTypes;
 use App\Http\Controllers\Api\ApiController as Controller;
 use App\Http\Requests\CreateEntityRequest;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\EntityResource;
 use App\Models\Entity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -22,26 +23,6 @@ class EntitiesController extends Controller
      * @group Entities
      *
      * @queryParam entitiesCursor string The cursor for pagination. Example: eyJpZCI6NiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjM0OjQyLjAwMDAwMFoifQ==
-     * @response 200 scenario="Successful response" {
-     *      "data": [
-     *      {
-     *          "id": 6,
-     *          "entityable_type": "news",
-     *          "entityable_id": 5,
-     *          "created_at": "2026-01-15T12:34:42.000000Z",
-     *          "data": {
-     *              "id": 5,
-     *              "title": "Sample Title",
-     *              "description": "This is a"
-     *          }
-     *      }
-     *      ],
-     *      "meta": {
-     *          "next_cursor": null,
-     *          "prev_cursor": null,
-     *          "per_page": 20
-     *      }
-     * }"
      * @param Request $request
      * @return JsonResponse
      */
@@ -72,40 +53,47 @@ class EntitiesController extends Controller
      * Show single entity by id
      * @group Entities
      *
+     * @queryParam commentsCursor string The cursor for pagination of comments. Example: eyJpZCI6MiwgImNyZWF0ZWRfYXQiOiIyMDI2LTAxLTE1VDEyOjIyOjQ5LjAwMDAwMFoifQ==
      * @param int $entity_id
-     * @response 200 scenario="Successful response" {
-     * "data": {
-     * "entity_id": 1,
-     * "entity_type": "news",
-     * "entity_data": {
-     * "id": 1,
-     * "title": "Sample Title",
-     * "description": "This is a news"
-     * },
-     * "created_at": "2026-01-15T12:22:49.000000Z"
-     * }
-     * }
-     *
      * @return JsonResponse
      */
-    public function view(int $entity_id)
+    public function view(Request $request, $entity_id)
     {
-        $entity = Entity::with([
-            'entityable' => function ($query) {
-                $query->select(['id', 'title', 'description']);
-            }
-        ])->findOrFail($entity_id);
+        try {
+            $entity = Entity::findOrFail($entity_id);
 
-        if (! $entity?->entityable) {
+            if (! $entity->entityable) {
+                abort(404, 'Related entity not found');
+            }
+
+            $cursorName = 'commentsCursor';
+            $this->valiateCursor($request, $cursorName);
+
+            $comments = $entity->comments()
+                ->with('children')
+                ->cursorPaginate(
+                    perPage: parent::DEFAULT_PER_PAGE,
+                    cursorName: $cursorName
+                );
+
             return response()->json([
-                'error' => 'entityable_not_found',
-                'message' => 'Related entity not found'
+                'data' => [
+                    'entity' => new EntityResource($entity),
+                    'comments' => CommentResource::collection($comments->items()),
+                ],
+                'meta' => [
+                    'next_cursor' => optional($comments->nextCursor())->encode(),
+                    'prev_cursor' => optional($comments->previousCursor())->encode(),
+                    'per_page' => $comments->perPage(),
+                ],
+            ]);
+
+        } catch (ModelNotFoundException) {
+            return response()->json([
+                'error' => 'entity_not_found',
+                'message' => 'entity not found'
             ], 404);
         }
-
-        return response()->json([
-            'data' => new EntityResource($entity),
-        ]);
     }
 
     /**
@@ -114,11 +102,7 @@ class EntitiesController extends Controller
      * @group Entities
      * @bodyParam entity_type int required The type of the entity. Example: 1 - News, 2 - VideoPost
      * @bodyParam title string required The title of the entity. Example: Sample Title
-     * @bodyParam description string required The description of the entity. Example: This is a
-     *
-     * @response 201 scenario="Entity created successfully" {"entity_id": 1,"entity_type": 1,"data": {"id": 1,"title": "Sample Title","description": "This is a sample description","created_at": "2024-01-01T00:00:00.000000Z""}}
-     * @response 422 scenario="Validation error" {"message": "The given data was invalid.","errors": {"entity_type": ["The selected entity type is invalid."]}}
-     *
+     * @bodyParam description text required The description of the entity. Example: This is a description
      * @return JsonResponse
      */
     public function create(CreateEntityRequest $request)

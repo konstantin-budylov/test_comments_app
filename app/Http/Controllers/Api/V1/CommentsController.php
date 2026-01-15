@@ -3,45 +3,197 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\ApiController as Controller;
+use App\Http\Requests\DeleteCommentRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
+use App\Models\Comment;
+use App\Models\Entity;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class CommentsController extends Controller
 {
     /**
-     * @group Entities
-     * @return void
+     * List all entity comments
+     * @group Comments
+     * @return JsonResponse
      */
-    public function index()
+    public function index($entity_id)
     {
+        try {
+            $entity = Entity::findOrFail($entity_id);
 
+            if (! $entity->entityable) {
+                abort(404, 'Related entity not found');
+            }
+
+            $comments = Comment::where('entity_id', $entity->id)
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            $tree = $this->buildTree($comments);
+
+            return response()->json([
+                'data' => CommentResource::collection($tree),
+            ]);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'entity_not_found',
+                'message' => 'entity not found'
+            ], 404);
+        }
     }
 
     /**
-     * @group Entities
-     * @param string $entity_id
-     * @return void
+     * Create entity comment
+     * @group Comments
+     *
+     * @bodyParam user_id integer required user_id. Example: 1
+     * @bodyParam text string required comment text. Example: This is a comment.
+     * @bodyParam parent_id integer parent comment id. Example: 2
+     * @param int $entity_id
+     * @param StoreCommentRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function create(string $entity_id)
+    public function create(int $entity_id, StoreCommentRequest $request): JsonResponse
     {
+        try {
+            $entity = Entity::findOrFail($entity_id);
 
+            if (! $entity->entityable) {
+                abort(404, 'Related entity not found');
+            }
+
+            $parentId = $request->parent_id;
+
+            if ($parentId) {
+                $parent = Comment::where('id', $parentId)
+                    ->where('entity_id', $entity->id)
+                    ->first();
+
+                if (! $parent) {
+                    return response()->json([
+                        'error' => 'invalid_parent',
+                        'message' => 'parent comment not found or does not belong to this entity'
+                    ], 422);
+                }
+            }
+
+            return DB::transaction(function () use ($entity, $parentId, $request) {
+                $comment = Comment::create([
+                    'entity_id' => $entity->id,
+                    'user_id'   => $request->user_id,
+                    'parent_id' => $parentId,
+                    'text'      => $request->text,
+                ]);
+
+                return response()->json([
+                    'data' => new CommentResource($comment),
+                ], 201);
+            });
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'entity_not_found',
+                'message' => 'entity not found'
+            ], 404);
+        }
     }
 
     /**
-     * @group Entities
-     * @param string $comment_id
-     * @return void
+     * Update comment
+     * @group Comments
+     *
+     * @bodyParam text string required New text for the comment. Example: Updated comment text.
+     * @bodyParam user_id integer required ID of the user attempting to update the comment.
+     * @param Comment $comment
+     * @param UpdateCommentRequest $request
+     * @return JsonResponse
      */
-    public function update(string $comment_id)
+    public function update(Comment $comment, UpdateCommentRequest $request): JsonResponse
     {
+        $data = $request->validated();
 
+        if ((int) $comment->user_id !== (int) $data['user_id']) {
+            return response()->json([
+                'error' => 'forbidden',
+                'message' => 'User has no permission to update this comment',
+            ], 403);
+        }
+
+        return DB::transaction(function () use ($comment, $data) {
+            $comment->update([
+                'text' => $data['text'],
+            ]);
+
+            return response()->json([
+                'data' => new CommentResource($comment),
+            ]);
+        });
     }
 
     /**
-     * @group Entities
-     * @param string $comment_id
-     * @return void
+     * Delete comment
+     * @group Comments
+     * @param Comment $comment
+     * @param DeleteCommentRequest $request
+     * @return JsonResponse
      */
-    public function delete(string $comment_id)
+    public function destroy(Comment $comment, DeleteCommentRequest $request): JsonResponse
     {
+        if ((int) $comment->user_id !== (int) $request->validated()['user_id']) {
+            return response()->json([
+                'error' => 'forbidden',
+                'message' => 'User has no permission to delete this comment',
+            ], 403);
+        }
 
+        $hasChildren = Comment::where('parent_id', $comment->id)->exists();
+
+        return DB::transaction(function () use ($comment, $hasChildren) {
+            if ($hasChildren) {
+                $comment->update([
+                    'text' => 'Comment has been deleted',
+                ]);
+
+                return response()->json([
+                    'data' => [
+                        'id' => $comment->id,
+                        'deleted' => true,
+                        'soft' => true,
+                    ],
+                ]);
+            }
+
+            $comment->delete();
+
+            return response()->json([
+                'data' => [
+                    'id' => $comment->id,
+                    'deleted' => true,
+                    'soft' => false,
+                ],
+            ]);
+        });
+    }
+
+    private function buildTree($comments, $parentId = null)
+    {
+        $grouped = $comments->groupBy('parent_id');
+
+        $build = function ($parentId) use (&$build, $grouped) {
+            return ($grouped[$parentId] ?? collect())
+                ->map(function ($comment) use ($build) {
+                    $comment->children = $build($comment->id);
+                    return $comment;
+                })
+                ->values();
+        };
+
+        return $build(null);
     }
 }

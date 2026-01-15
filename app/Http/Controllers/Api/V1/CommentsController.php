@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Entity;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class CommentsController extends Controller
@@ -30,13 +31,19 @@ class CommentsController extends Controller
             }
 
             $comments = Comment::where('entity_id', $entity->id)
-                ->orderBy('created_at', 'asc')
-                ->get();
-
-            $tree = $this->buildTree($comments);
+                ->orderBy('path')
+                ->get([
+                    'id',
+                    'entity_id',
+                    'user_id',
+                    'parent_id',
+                    'text',
+                    'path',
+                    'created_at',
+                ]);
 
             return response()->json([
-                'data' => CommentResource::collection($tree),
+                'data' => $this->buildTree($comments),
             ]);
 
         } catch (ModelNotFoundException $e) {
@@ -181,19 +188,29 @@ class CommentsController extends Controller
         });
     }
 
-    private function buildTree($comments, $parentId = null)
+    private function buildTree(Collection $comments): array
     {
-        $grouped = $comments->groupBy('parent_id');
+        $items = [];
+        $tree  = [];
 
-        $build = function ($parentId) use (&$build, $grouped) {
-            return ($grouped[$parentId] ?? collect())
-                ->map(function ($comment) use ($build) {
-                    $comment->children = $build($comment->id);
-                    return $comment;
-                })
-                ->values();
-        };
+        foreach ($comments as $comment) {
+            $items[$comment->id] = [
+                'id'        => $comment->id,
+                'user_id'   => $comment->user_id,
+                'text'      => $comment->text,
+                'created_at'=> $comment->created_at,
+                'children'  => [],
+            ];
+        }
 
-        return $build(null);
+        foreach ($comments as $comment) {
+            if ($comment->parent_id) {
+                $items[$comment->parent_id]['children'][] = &$items[$comment->id];
+            } else {
+                $tree[] = &$items[$comment->id];
+            }
+        }
+
+        return $tree;
     }
 }

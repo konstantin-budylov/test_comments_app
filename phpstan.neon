@@ -1,0 +1,96 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/tomasvotruba/type-coverage/config/extension.neon
+
+parameters:
+
+#    parallel:
+#      processTimeout: 1200.0
+
+    paths:
+        - app/Aliases
+#        - app/BenefitPlan
+#        - app/BusinessUnits
+#        - app/Cpt
+#        - app/Cqrs
+#        - app/DataOwners
+#        - app/ElasticSearch
+#        - app/ExpirationPolicy
+#        - app/FundingRates
+#        - app/Geographies
+#        - app/Groups
+#        - app/Hcc
+        - app/Hcpcs
+#        - app/Hedis
+        - app/Helpers/CarbonImmutableAsDate.php
+#        - app/Hipps
+#        - app/IcdCm
+#        - app/IcdPcs
+#        - app/Insurance
+#        - app/LinesOfBusiness
+#        - app/Loinc
+        - app/MeatConfigurations
+        - app/Models/BulkCollection.php
+#        - app/MsDrg
+#        - app/Ndc
+#        - app/Npi
+        - app/Outbox
+#        - app/Overseer
+#        - app/Payers
+#        - app/Providers
+#        - app/Reinsurance
+#        - app/Repository
+#        - app/RevenueCodes
+#        - app/RiskSharing
+#        - app/RxNorm
+#        - app/Services
+        - app/Services/Mutations.php
+        - app/Services/Mutations/BulkMutations.php
+#        - app/SeverityPolicy
+        - app/SphereEventsBus
+#        - app/Snomed
+#        - app/SpannerSync
+#        - app/Specialties
+#        - app/Taxonomy
+#        - app/TaxonomyCodes
+        - app/ValueObjects/StringNullableDate.php
+#        - app/ValueObjects
+#        - app/
+    #        - bootstrap/
+    #        - public/
+    #        - config/
+    #        - lang/
+    #        - routes/
+    #        - tests/
+
+    tmpDir: storage/phpstan
+
+    # Level 9 is the highest level
+    level: 5
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+         -
+            # file is copy-paste from debugbar and can't be fixed till parent class fix
+            message: '#^.*$#'
+            path: app/Services/BaseSpanner/Debugbar/DataCollector/SpannerAuthCollector.php
+         -
+            # file is broken since swiftMailer is disabled
+            message: '#^.*$#'
+            path: app/Mail/GeneralMailable.php
+#    ignoreErrors:
+#        - '#PHPDoc tag @var#'
+#
+    excludePaths:
+        - ./app/DataTables
+
+#
+#    checkMissingIterableValueType: false
+
+    # don't trust phpdoc
+    # treatPhpDocTypesAsCertain: false
+
+    # https://github.com/TomasVotruba/type-coverage
+    type_coverage:
+        return_type: 10
+        param_type: 10
+        property_type: 10

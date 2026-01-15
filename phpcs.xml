@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<ruleset name="Inventcorp PHP standard">
+    <description>Inventcorp PHP standard.</description>
+
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>public</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>*\.(inc|css|js)</exclude-pattern>
+    <exclude-pattern>public/index.php</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors" />
+    <arg name="parallel" value="1" />
+    <arg value="np"/>
+    <arg name="cache" value="storage/phpcs/.phpcs-cache" />
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader.SpacingInsideBlock"/>
+    </rule>
+
+    <!-- Extras -->
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing" />
+    <rule ref="Squiz.Arrays.ArrayDeclaration" >
+        <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned" />
+        <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed" />
+        <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed" />
+        <!-- allow multiline empty arrays, like laravel  -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.SpaceInEmptyArray" />
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.KeyNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.ValueNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Ban some functions -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="sizeof" value="count"/>
+                <element key="delete" value="unset"/>
+                <element key="print" value="echo"/>
+                <!-- <element key="is_null" value="null"/> -->
+                <element key="create_function" value="null"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <!-- Too abusive -->
+        <exclude name="Generic.Strings.UnnecessaryStringConcat.Found" />
+    </rule>
+
+    <!-- Add rules from slevomat -->
+    <config name="installed_paths" value="../../slevomat/coding-standard"/>
+    <rule ref="SlevomatCodingStandard.Namespaces">
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly" />
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces" />
+        <!-- allow refs from the same namespace -->
+        <exclude name="SlevomatCodingStandard.Namespaces.UseFromSameNamespace.UseFromSameNamespace" />
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" type="boolean" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- space in typecast -->
+    <rule ref="Generic.Formatting.SpaceAfterCast" />
+
+    <!-- excludes files/dirs -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>database/migrations/</exclude-pattern>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses.IncorrectlyOrderedUses">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.KeySpecified">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.NoComma">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="PSR12.Operators.OperatorSpacing">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.Indent">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.ContentAfterOpenBracket">
+        <exclude-pattern>config/</exclude-pattern>
+    </rule>
+</ruleset>
